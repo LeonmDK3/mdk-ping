@@ -1,0 +1,111 @@
+/* Container for all waypoint indicators */
+#waypoint-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+/* Individual waypoint indicator */
+.waypoint-indicator {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    text-align: center; /* Ensure text alignment */
+}
+
+/* Arrow styling */
+.arrow {
+    width: 0;
+    height: 0;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-top: 11px solid #FF5757;
+    animation: pulse 1s infinite;
+    margin: 0 auto; /* Center the arrow */
+}
+
+/* Player name container */
+.player-name {
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-family: 'Arial', sans-serif;
+    font-size: 10px;
+    white-space: nowrap;
+    text-align: center;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    margin: 0 auto; /* Center the text */
+}
+
+/* Pulse animation for the arrow */
+@keyframes pulse {
+    0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: translateY(-5px) scale(1.1);
+        opacity: 0.8;
+    }
+    100% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+}
+
+/* Optional: Add a glow effect to make the ping more visible */
+.waypoint-indicator::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 20px;
+    background: radial-gradient(circle, rgba(255, 87, 87, 0.4) 0%, rgba(255, 87, 87, 0) 70%);
+    border-radius: 50%;
+    animation: glow 1s infinite alternate;
+}
+
+@keyframes glow {
+    from {
+        transform: translateX(-50%) scale(1);
+        opacity: 0.5;
+    }
+    to {
+        transform: translateX(-50%) scale(1.5);
+        opacity: 0;
+    }
+}
+
+/* Optional: Add different colors for different states */
+.waypoint-indicator.urgent .arrow {
+    border-top-color: #FF0000; /* Changed from border-bottom-color */
+}
+
+.waypoint-indicator.friendly .arrow {
+    border-top-color: #00FF00; /* Changed from border-bottom-color */
+}
+
+/* Make sure the ping is visible in different lighting conditions */
+.waypoint-indicator {
+    mix-blend-mode: screen;
+}
+
+/* Ensure text remains crisp */
+.player-name {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Optional: Add transition for smooth updates */
+.waypoint-indicator {
+    transition: all 0.1s ease-out;
+}
